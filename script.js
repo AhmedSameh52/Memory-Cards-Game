@@ -1,6 +1,6 @@
 const gameBoard = document.getElementById("game-board");
 const playerLivesCount = document.getElementById("playerLivesCount");
-const playerLives = 6;
+var playerLives = 6;
 
 playerLivesCount.textContent = playerLives;
 
@@ -41,12 +41,72 @@ function cardGenerator() {
         backImage.classList = 'card-back';
 
         faceImage.src = shuffledImages[i].imgSrc;
+        card.setAttribute('name', shuffledImages[i].name);
 
         card.appendChild(faceImage);
         card.appendChild(backImage);
         gameBoard.appendChild(card);
+
+        card.addEventListener('click', (e) => {
+            card.classList.toggle("toggleCard");
+            checkCards(e);
+        });
     }
 
+}
+
+function checkCards(e) {
+    const clickedCard = e.target;
+    clickedCard.classList.add("flipped");
+
+    const flippedCards = document.querySelectorAll('.flipped');
+
+    if(flippedCards.length == 2) {
+        if(flippedCards[0].getAttribute('name') == flippedCards[1].getAttribute('name')) {
+            for(let i = 0; i < flippedCards.length; i++) {
+                flippedCards[i].classList.remove("flipped");
+                flippedCards[i].style.pointerEvents = "none";
+            }
+        } else {
+            for (let i = 0; i < flippedCards.length; i++) {
+                flippedCards[i].classList.remove("flipped");
+                setTimeout(() => flippedCards[i].classList.remove("toggleCard"), 1000);
+            }
+            playerLives--;
+            playerLivesCount.textContent = playerLives;
+            if(playerLives == 0) {
+                restartGame("You Lost the Game");
+            }
+        }
+    }
+
+    const toggleCards = document.querySelectorAll(".toggleCard");
+    if(toggleCards.length == 16) {
+         restartGame("You Won!");
+    }
+}
+
+function restartGame(textAlert) {
+    const shuffledImages = randomize();
+    const faces = document.querySelectorAll(".card-face");
+    const cards = document.querySelectorAll(".card");
+
+    gameBoard.style.pointerEvents = "none";
+
+    for(let i = 0; i < shuffledImages.length; i++) {
+        cards[i].classList.remove("toggleCard");
+        setTimeout(() => {
+            cards[i].style.pointerEvents = "all";
+            faces[i].src = shuffledImages[i].imgSrc;
+            cards[i].setAttribute('name', shuffledImages[i].name);
+        }, 1000);
+    }
+    playerLives = 6;
+    playerLivesCount.textContent = playerLives;
+
+    gameBoard.style.pointerEvents = "all";
+
+    setTimeout(() => window.alert(textAlert), 100);
 }
 
 cardGenerator();
