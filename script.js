@@ -6,22 +6,22 @@ playerLivesCount.textContent = playerLives;
 
 
 imagesData = [
-    {imgSrc: './images/angular.svg', name: 'angular'},
-    {imgSrc: './images/aurelia.svg', name: 'aurelia'},
-    {imgSrc: './images/backbone.svg', name: 'backbone'},
-    {imgSrc: './images/ember.svg', name: 'ember'},
-    {imgSrc: './images/react.svg', name: 'react'},
-    {imgSrc: './images/vue.svg', name: 'vue'},
-    {imgSrc: './images/nest.png', name: 'nest'},
-    {imgSrc: './images/ajax.png', name: 'ajax'},
-    {imgSrc: './images/angular.svg', name: 'angular'},
-    {imgSrc: './images/aurelia.svg', name: 'aurelia'},
-    {imgSrc: './images/backbone.svg', name: 'backbone'},
-    {imgSrc: './images/ember.svg', name: 'ember'},
-    {imgSrc: './images/react.svg', name: 'react'},
-    {imgSrc: './images/vue.svg', name: 'vue'},
-    {imgSrc: './images/nest.png', name: 'nest'},
-    {imgSrc: './images/ajax.png', name: 'ajax'},
+    {imgSrc: './images/blue-monster.png', name: 'blue-monster'},
+    {imgSrc: './images/cyan-monster.png', name: 'cyan-monster'},
+    {imgSrc: './images/devil-monster.png', name: 'devil-monster'},
+    {imgSrc: './images/green-monster.png', name: 'green-monster'},
+    {imgSrc: './images/one-eye-monster.png', name: 'one-eye-monster'},
+    {imgSrc: './images/purple-monster.png', name: 'purple-monster'},
+    {imgSrc: './images/red-monster.png', name: 'red-monster'},
+    {imgSrc: './images/yellow-monster.png', name: 'yellow-monster'},
+    {imgSrc: './images/blue-monster.png', name: 'blue-monster'},
+    {imgSrc: './images/cyan-monster.png', name: 'cyan-monster'},
+    {imgSrc: './images/devil-monster.png', name: 'devil-monster'},
+    {imgSrc: './images/green-monster.png', name: 'green-monster'},
+    {imgSrc: './images/one-eye-monster.png', name: 'one-eye-monster'},
+    {imgSrc: './images/purple-monster.png', name: 'purple-monster'},
+    {imgSrc: './images/red-monster.png', name: 'red-monster'},
+    {imgSrc: './images/yellow-monster.png', name: 'yellow-monster'},
 ];
 
 function randomize() {
