@@ -2,21 +2,40 @@
     margin: 0;
     padding: 0;
     box-sizing: border-box;
+    font-family: 'jua', sans-serif;
+}
+
+h1 {
+    margin-top: -50px;
+    margin-bottom: 10px;
+    text-align: center;
+    font-weight: 700;
+    font-size: 45px;
+    color: #ECFEE8;
 }
 
 body {
     height: 100vh;
-    background: #74EBD5;
+    background: #41337A;
     display: flex;
     justify-content: center;
     align-items: center;
     flex-direction: column;
 }
 
+p {
+    margin-top: 10px;
+    text-align: center;
+    font-weight: 700;
+    font-size: 30px;
+    color: #ECFEE8;
+}
+
 #game-board {
     display: grid;
-    grid-template-columns: repeat(4,8rem);
-    grid-template-rows: repeat(4,8rem);
+    grid-gap: 16px;
+    grid-template-columns: repeat(6, 120px);
+    grid-template-rows: repeat(3, calc(100px / 2 * 3));
     row-gap: 2rem;
     column-gap: 2rem;
     perspective: 800px;
@@ -27,6 +46,7 @@ body {
     transform-style: preserve-3d;
     transition: all 2s cubic-bezier(0.175, 0.885, 0.32, 1.275);
     box-shadow: rgba(0,0,0,0.2) 0px 5px 15px;
+    border-radius: 10px;
 }
 
 .card-face, .card-back {
@@ -34,11 +54,15 @@ body {
     height: 100%;
     position: absolute;
     pointer-events: none;
+    border-radius: 10px;
 }
 
 .card-back {
     background-color: white;
     backface-visibility: hidden;
+    background-image: url("./images/pattern.png");
+    background-size: 850%;
+
 }
 
 .toggleCard {
@@ -47,4 +71,6 @@ body {
 
 .card-face {
     transform: rotateY(-180deg);
+    background-color: #331E36;
+    padding: 5px;
 }

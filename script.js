@@ -4,6 +4,11 @@ var playerLives = 6;
 
 playerLivesCount.textContent = playerLives;
 
+WebFont.load({
+    google: {
+        families: ['Jua']
+    },
+});
 
 imagesData = [
     {imgSrc: './images/blue-monster.png', name: 'blue-monster'},
@@ -14,6 +19,7 @@ imagesData = [
     {imgSrc: './images/purple-monster.png', name: 'purple-monster'},
     {imgSrc: './images/red-monster.png', name: 'red-monster'},
     {imgSrc: './images/yellow-monster.png', name: 'yellow-monster'},
+    {imgSrc: './images/wide-monster.png', name: 'wide-monster'},
     {imgSrc: './images/blue-monster.png', name: 'blue-monster'},
     {imgSrc: './images/cyan-monster.png', name: 'cyan-monster'},
     {imgSrc: './images/devil-monster.png', name: 'devil-monster'},
@@ -22,6 +28,7 @@ imagesData = [
     {imgSrc: './images/purple-monster.png', name: 'purple-monster'},
     {imgSrc: './images/red-monster.png', name: 'red-monster'},
     {imgSrc: './images/yellow-monster.png', name: 'yellow-monster'},
+    {imgSrc: './images/wide-monster.png', name: 'wide-monster'},
 ];
 
 function randomize() {
@@ -75,14 +82,18 @@ function checkCards(e) {
             playerLives--;
             playerLivesCount.textContent = playerLives;
             if(playerLives == 0) {
-                restartGame("You Lost the Game");
+                setTimeout(() => {
+                    restartGame("You Lost the Game");
+                }, 1000);
             }
         }
     }
 
     const toggleCards = document.querySelectorAll(".toggleCard");
     if(toggleCards.length == 16) {
-         restartGame("You Won!");
+        setTimeout(() => {
+            restartGame("You Won!");
+        }, 1000);
     }
 }
 
