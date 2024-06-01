@@ -21,6 +21,7 @@ body {
     justify-content: center;
     align-items: center;
     flex-direction: column;
+    overflow: hidden;
 }
 
 p {
@@ -39,6 +40,7 @@ p {
     row-gap: 2rem;
     column-gap: 2rem;
     perspective: 800px;
+    padding-bottom: 10px;
 }
 
 .card {
@@ -58,7 +60,7 @@ p {
 }
 
 .card-back {
-    background-color: white;
+    background-color: #ECFEE8;
     backface-visibility: hidden;
     background-image: url("./images/pattern.png");
     background-size: 850%;
@@ -72,5 +74,128 @@ p {
 .card-face {
     transform: rotateY(-180deg);
     background-color: #331E36;
-    padding: 5px;
+    padding-top: 20px;
+    padding-bottom: 20px;
+    padding-left: 5px;
+    padding-right: 5px;
+}
+
+.status-container {
+    display: flex;
+    align-items: center;
+}
+
+.status-container img {
+    margin-right: 10px; /* Space between images and text */
+}
+
+.status-container p {
+    margin: 0 20px 0 0; /* Space between text elements */
+}
+
+.header-container {
+    display: flex;
+    justify-content: center;
+    position: relative;
+    width: 100%;
+}
+
+.header-title {
+    text-align: center;
+    flex-grow: 1;
+}
+
+.slider-container {
+    margin-top: 20px; /* Space above the slider */
+    text-align: center;
+}
+
+.timer {
+    font-size: 34px;
+    position: absolute;
+    right: 22%;
+    top: 50%;
+    transform: translateY(-50%);
+    padding-bottom: 30px;
+    color: #ECFEE8;
+}
+
+.slider-container {
+    color: #ECFEE8;
+    font-size: 20px;
+}
+
+.circle {
+    position: absolute;
+    border-radius: 50%;
+    background: #ECFEE8;
+    animation: ripple 15s infinite;
+    box-shadow: 0px 0px 1px 0px #c3efeb;
+}
+
+.small {
+    width: 300px;
+    height: 300px;
+    right: -150px;
+    bottom: -150px;
+}
+
+.medium {
+width: 350px;
+height: 350px;
+right: -175px;
+bottom: -175px;
+}
+
+.large {
+width: 400px;
+height: 400px;
+right: -200px;
+bottom: -200px;
+}
+
+.xlarge {
+width: 450px;
+height: 450px;
+right: -225px;
+bottom: -225px;
+}
+
+.xxlarge {
+width: 500px;
+height: 500px;
+right: -250px;
+bottom: -250px;
+}
+
+.shade1 {
+opacity: 0.2;
+}
+
+.shade2 {
+opacity: 0.5;
+}
+
+.shade3 {
+opacity: 0.7;
+}
+
+.shade4 {
+opacity: 0.8;
+}
+
+.shade5 {
+opacity: 0.9;
+}
+
+@keyframes ripple {
+    0% {
+    transform: scale(0.8);
+    }
+    50% {
+    transform: scale(1.2);
+    }
+    100% {
+    transform: scale(0.8);
+    }
 }

@@ -1,8 +1,12 @@
 const gameBoard = document.getElementById("game-board");
 const playerLivesCount = document.getElementById("playerLivesCount");
+const scoreCount = document.getElementById("scoreCount");
+
 var playerLives = 6;
+var score = 0
 
 playerLivesCount.textContent = playerLives;
+scoreCount.textContent = score;
 
 WebFont.load({
     google: {
@@ -74,13 +78,17 @@ function checkCards(e) {
                 flippedCards[i].classList.remove("flipped");
                 flippedCards[i].style.pointerEvents = "none";
             }
+            score += 2;
+            scoreCount.textContent = score;
         } else {
             for (let i = 0; i < flippedCards.length; i++) {
                 flippedCards[i].classList.remove("flipped");
                 setTimeout(() => flippedCards[i].classList.remove("toggleCard"), 1000);
             }
             playerLives--;
+            score -= 2;
             playerLivesCount.textContent = playerLives;
+            scoreCount.textContent = score;
             if(playerLives == 0) {
                 setTimeout(() => {
                     restartGame("You Lost the Game");
@@ -113,11 +121,66 @@ function restartGame(textAlert) {
         }, 1000);
     }
     playerLives = 6;
+    score = 0;
+
     playerLivesCount.textContent = playerLives;
+    scoreCount.textContent = score;
 
     gameBoard.style.pointerEvents = "all";
 
+    setDifficulty();
+
     setTimeout(() => window.alert(textAlert), 100);
 }
+
+
+document.addEventListener('DOMContentLoaded', function() {
+    const difficultySlider = document.getElementById('difficulty');
+    const difficultyLabel = document.getElementById('difficulty-label');
+    const timerElement = document.getElementById('timer');
+
+    let timerInterval;
+    const difficulties = {
+        1: { label: 'Easy', time: 300 }, // 5 minutes
+        2: { label: 'Medium', time: 180 }, // 3 minutes
+        3: { label: 'Hard', time: 60 } // 1 minute
+    };
+
+    function formatTime(seconds) {
+        const minutes = Math.floor(seconds / 60);
+        const remainingSeconds = seconds % 60;
+        return `${minutes}:${remainingSeconds < 10 ? '0' : ''}${remainingSeconds}`;
+    }
+
+    function updateTimer(seconds) {
+        clearInterval(timerInterval);
+        timerElement.textContent = formatTime(seconds);
+        timerInterval = setInterval(() => {
+            seconds--;
+            timerElement.textContent = formatTime(seconds);
+            if (seconds <= 0) {
+                clearInterval(timerInterval);
+                setTimeout(() => {
+                    restartGame("Time's Up, You Lost the Game");
+                }, 1000);
+            }
+        }, 1000);
+    }
+
+    function setDifficulty() {
+        const difficulty = difficulties[difficultySlider.value];
+        difficultyLabel.textContent = difficulty.label;
+        updateTimer(difficulty.time);
+    }
+
+    difficultySlider.addEventListener('input', setDifficulty);
+
+    // Initialize with default difficulty
+    setDifficulty();
+
+    // Expose setDifficulty function globally so it can be called elsewhere
+    window.setDifficulty = setDifficulty;
+});
+
 
 cardGenerator();

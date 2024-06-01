@@ -7,11 +7,31 @@
         <script src="https://ajax.googleapis.com/ajax/libs/webfont/1.6.26/webfont.js"></script>
     </head>
     <body>
-        <h1>Monster Memory Cards</h1>
-        <div id="game-board">
+        <div class="header-container">
+            <h1 class="header-title">Monster Memory Cards</h1>
+            <span class="timer" id="timer"></span>
         </div>
-        <p>Lives: <span id="playerLivesCount"></span></p>
-        <p>Score: <span id="scoreCount"></span></p>
+        <div id="game-board"></div>
+
+        <div class="status-container">
+            <img src="images/heart.png" width="35" alt="Heart">
+            <p>Lives: <span id="playerLivesCount">5</span></p>
+            <img src="images/score.png" width="35" alt="Score">
+            <p>Score: <span id="scoreCount">-2</span></p>
+        </div>
+
+        <div class="slider-container">
+            <label for="difficulty">Difficulty: </label>
+            <input type="range" id="difficulty" name="difficulty" min="1" max="3" step="1">
+            <span id="difficulty-label">Easy</span>
+        </div>
+        <div class="ripple-background">
+        <div class="circle xxlarge shade1"></div>
+        <div class="circle xlarge shade2"></div>
+        <div class="circle large shade3"></div>
+        <div class="circle medium shade4"></div>
+        <div class="circle small shade5"></div>
+
         <script src="script.js"></script>
     </body>
 </html>
