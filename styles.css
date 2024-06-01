@@ -141,61 +141,61 @@ p {
 }
 
 .medium {
-width: 350px;
-height: 350px;
-right: -175px;
-bottom: -175px;
+    width: 350px;
+    height: 350px;
+    right: -175px;
+    bottom: -175px;
 }
 
 .large {
-width: 400px;
-height: 400px;
-right: -200px;
-bottom: -200px;
+    width: 400px;
+    height: 400px;
+    right: -200px;
+    bottom: -200px;
 }
 
 .xlarge {
-width: 450px;
-height: 450px;
-right: -225px;
-bottom: -225px;
+    width: 450px;
+    height: 450px;
+    right: -225px;
+    bottom: -225px;
 }
 
 .xxlarge {
-width: 500px;
-height: 500px;
-right: -250px;
-bottom: -250px;
+    width: 500px;
+    height: 500px;
+    right: -250px;
+    bottom: -250px;
 }
 
 .shade1 {
-opacity: 0.2;
+    opacity: 0.2;
 }
 
 .shade2 {
-opacity: 0.5;
+    opacity: 0.5;
 }
 
 .shade3 {
-opacity: 0.7;
+    opacity: 0.7;
 }
 
 .shade4 {
-opacity: 0.8;
+    opacity: 0.8;
 }
 
 .shade5 {
-opacity: 0.9;
+    opacity: 0.9;
 }
 
 @keyframes ripple {
     0% {
-    transform: scale(0.8);
+        transform: scale(0.8);
     }
     50% {
-    transform: scale(1.2);
+        transform: scale(1.2);
     }
     100% {
-    transform: scale(0.8);
+        transform: scale(0.8);
     }
 }
