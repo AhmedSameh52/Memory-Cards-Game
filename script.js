@@ -2,7 +2,7 @@ const gameBoard = document.getElementById("game-board");
 const playerLivesCount = document.getElementById("playerLivesCount");
 const scoreCount = document.getElementById("scoreCount");
 
-var playerLives = 6;
+var playerLives = 8;
 var score = 0
 
 playerLivesCount.textContent = playerLives;
@@ -120,7 +120,7 @@ function restartGame(textAlert) {
             cards[i].setAttribute('name', shuffledImages[i].name);
         }, 1000);
     }
-    playerLives = 6;
+    playerLives = 8;
     score = 0;
 
     playerLivesCount.textContent = playerLives;
@@ -175,12 +175,36 @@ document.addEventListener('DOMContentLoaded', function() {
 
     difficultySlider.addEventListener('input', setDifficulty);
 
-    // Initialize with default difficulty
     setDifficulty();
 
-    // Expose setDifficulty function globally so it can be called elsewhere
     window.setDifficulty = setDifficulty;
 });
+
+var overlay = document.getElementById("overlay");
+
+var btn = document.getElementById("about-button");
+
+var span = document.getElementById("closeButton");
+
+btn.onclick = function() {
+    overlay.style.display = "block";
+}
+
+span.onclick = function() {
+    overlay.style.display = "none";
+}
+
+window.onclick = function(event) {
+    if (event.target == overlay) {
+        overlay.style.display = "none";
+    }
+}
+
+var resetButton = document.getElementById("restart-button");
+
+resetButton.onclick = function() {
+    restartGame("The game has been restarted!");
+}
 
 
 cardGenerator();
