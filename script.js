@@ -38,7 +38,7 @@ function randomize() {
 }
 
 function cardGenerator() {
-    gameBoard.innerHTML = ""; // Clear the board
+    gameBoard.innerHTML = "";
     const shuffledImages = randomize();
 
     for (let i = 0; i < shuffledImages.length; i++) {
@@ -73,7 +73,7 @@ function checkCards(e) {
     const flippedCards = document.querySelectorAll('.flipped');
 
     if (flippedCards.length == 2) {
-        gameBoard.style.pointerEvents = 'none'; // Block clicks
+        gameBoard.style.pointerEvents = 'none';
 
         if (flippedCards[0].getAttribute('name') == flippedCards[1].getAttribute('name')) {
             setTimeout(() => {
@@ -81,18 +81,17 @@ function checkCards(e) {
                     flippedCards[i].classList.remove("flipped");
                     flippedCards[i].classList.add("matched");
 
-                    // Remove the back of the card
                     const backFace = flippedCards[i].querySelector('.card-back');
                     backFace.style.visibility = 'hidden';
 
                     setTimeout(() => {
                         flippedCards[i].style.opacity = "0";
-                    }, 100); // Add a small delay before changing opacity
+                    }, 100);
                 }
                 score += 2;
                 scoreCount.textContent = score;
-                gameBoard.style.pointerEvents = 'all'; // Restore clicks
-            }, 2000); // Wait for the flip animation to complete
+                gameBoard.style.pointerEvents = 'all';
+            }, 2000);
         } else {
             setTimeout(() => {
                 for (let i = 0; i < flippedCards.length; i++) {
@@ -108,9 +107,9 @@ function checkCards(e) {
                         restartGame("You Lost the Game");
                     }, 1000);
                 } else {
-                    gameBoard.style.pointerEvents = 'all'; // Restore clicks
+                    gameBoard.style.pointerEvents = 'all';
                 }
-            }, 2000); // Wait for the flip animation to complete
+            }, 2000);
         }
     }
 
@@ -127,13 +126,13 @@ function restartGame(textAlert) {
     const backs = document.querySelectorAll(".card-back");
     const cards = document.querySelectorAll(".card");
 
-    gameBoard.style.pointerEvents = "none"; // Block clicks during reset
+    gameBoard.style.pointerEvents = "none";
 
     setTimeout(() => {
         for (let i = 0; i < cards.length; i++) {
             cards[i].classList.remove("toggleCard", "matched");
-            backs[i].style.visibility = "visible"; // Restore the back of the cards
-            cards[i].style.opacity = "1"; // Reset the opacity
+            backs[i].style.visibility = "visible";
+            cards[i].style.opacity = "1";
         }
         setTimeout(() => {
             playerLives = 8;
@@ -141,14 +140,14 @@ function restartGame(textAlert) {
             playerLivesCount.textContent = playerLives;
             scoreCount.textContent = score;
 
-            cardGenerator(); // Re-generate cards
-            gameBoard.style.pointerEvents = "all"; // Restore clicks
+            cardGenerator();
+            gameBoard.style.pointerEvents = "all";
 
             setDifficulty();
 
             setTimeout(() => window.alert(textAlert), 100);
         }, 1000);
-    }, 1000); // Delay reset to allow any animations to complete
+    }, 1000);
 }
 
 document.addEventListener('DOMContentLoaded', function() {
@@ -158,9 +157,9 @@ document.addEventListener('DOMContentLoaded', function() {
 
     let timerInterval;
     const difficulties = {
-        1: { label: 'Easy', time: 300 }, // 5 minutes
-        2: { label: 'Medium', time: 180 }, // 3 minutes
-        3: { label: 'Hard', time: 60 } // 1 minute
+        1: { label: 'Easy', time: 300 },
+        2: { label: 'Medium', time: 180 },
+        3: { label: 'Hard', time: 60 }
     };
 
     function formatTime(seconds) {
