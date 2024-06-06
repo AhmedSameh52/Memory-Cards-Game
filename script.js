@@ -23,7 +23,6 @@ imagesData = [
     {imgSrc: './images/purple-monster.png', name: 'purple-monster'},
     {imgSrc: './images/red-monster.png', name: 'red-monster'},
     {imgSrc: './images/yellow-monster.png', name: 'yellow-monster'},
-    {imgSrc: './images/wide-monster.png', name: 'wide-monster'},
     {imgSrc: './images/blue-monster.png', name: 'blue-monster'},
     {imgSrc: './images/cyan-monster.png', name: 'cyan-monster'},
     {imgSrc: './images/devil-monster.png', name: 'devil-monster'},
@@ -32,7 +31,6 @@ imagesData = [
     {imgSrc: './images/purple-monster.png', name: 'purple-monster'},
     {imgSrc: './images/red-monster.png', name: 'red-monster'},
     {imgSrc: './images/yellow-monster.png', name: 'yellow-monster'},
-    {imgSrc: './images/wide-monster.png', name: 'wide-monster'},
 ];
 
 function randomize() {
@@ -74,12 +72,22 @@ function checkCards(e) {
 
     if(flippedCards.length == 2) {
         if(flippedCards[0].getAttribute('name') == flippedCards[1].getAttribute('name')) {
-            for(let i = 0; i < flippedCards.length; i++) {
-                flippedCards[i].classList.remove("flipped");
-                flippedCards[i].style.pointerEvents = "none";
-            }
-            score += 2;
-            scoreCount.textContent = score;
+            setTimeout(() => {
+                for(let i = 0; i < flippedCards.length; i++) {
+                    flippedCards[i].classList.remove("flipped");
+                    flippedCards[i].classList.add("matched");
+                    
+                    // Remove the back of the card
+                    const backFace = flippedCards[i].querySelector('.card-back');
+                    backFace.style.visibility = 'hidden';
+                    
+                    setTimeout(() => {
+                        flippedCards[i].style.opacity = "0";
+                    }, 100); // Add a small delay before changing opacity
+                }
+                score += 2;
+                scoreCount.textContent = score;
+            }, 2000); // Wait for the flip animation to complete
         } else {
             for (let i = 0; i < flippedCards.length; i++) {
                 flippedCards[i].classList.remove("flipped");

@@ -6,7 +6,7 @@
 }
 
 h1 {
-    margin-top: -50px;
+    margin-top: -40px;
     margin-bottom: 10px;
     text-align: center;
     font-weight: 700;
@@ -35,12 +35,11 @@ p {
 
 #game-board {
     display: grid;
-    grid-gap: 16px;
-    grid-template-columns: repeat(6, 100px);
-    grid-template-rows: repeat(3, calc(90px / 2 * 3));
-    row-gap: 2rem;
+    grid-gap: 12px;
+    grid-template-columns: repeat(4, 120px);
+    grid-template-rows: repeat(4, calc(110px / 2 * 2));
     column-gap: 2rem;
-    perspective: 800px;
+    perspective: 1800px;
     padding-bottom: 10px;
 }
 
@@ -72,13 +71,17 @@ p {
     transform: rotateY(180deg);
 }
 
+.matched {
+    transition: opacity 0.5s ease-out;
+}
+
 .card-face {
     transform: rotateY(-180deg);
     background-color: #331E36;
     padding-top: 20px;
     padding-bottom: 20px;
-    padding-left: 5px;
-    padding-right: 5px;
+    padding-left: 20px;
+    padding-right: 20px;
 }
 
 .status-container {
@@ -114,7 +117,7 @@ p {
 .timer {
     font-size: 24px;
     position: absolute;
-    right: 25%;
+    right: 32%;
     top: 50%;
     transform: translateY(-50%);
     padding-bottom: 30px;
