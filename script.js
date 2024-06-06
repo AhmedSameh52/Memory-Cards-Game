@@ -3,7 +3,7 @@ const playerLivesCount = document.getElementById("playerLivesCount");
 const scoreCount = document.getElementById("scoreCount");
 
 var playerLives = 8;
-var score = 0
+var score = 0;
 
 playerLivesCount.textContent = playerLives;
 scoreCount.textContent = score;
@@ -34,13 +34,14 @@ imagesData = [
 ];
 
 function randomize() {
-    return imagesData.sort( () => Math.random() - 0.5);
+    return imagesData.sort(() => Math.random() - 0.5);
 }
 
 function cardGenerator() {
+    gameBoard.innerHTML = ""; // Clear the board
     const shuffledImages = randomize();
 
-    for(let i = 0; i < shuffledImages.length; i++) {
+    for (let i = 0; i < shuffledImages.length; i++) {
         const card = document.createElement('div');
         const faceImage = document.createElement('img');
         const backImage = document.createElement('div');
@@ -57,11 +58,12 @@ function cardGenerator() {
         gameBoard.appendChild(card);
 
         card.addEventListener('click', (e) => {
-            card.classList.toggle("toggleCard");
-            checkCards(e);
+            if (!card.classList.contains('toggleCard')) {
+                card.classList.toggle("toggleCard");
+                checkCards(e);
+            }
         });
     }
-
 }
 
 function checkCards(e) {
@@ -70,43 +72,50 @@ function checkCards(e) {
 
     const flippedCards = document.querySelectorAll('.flipped');
 
-    if(flippedCards.length == 2) {
-        if(flippedCards[0].getAttribute('name') == flippedCards[1].getAttribute('name')) {
+    if (flippedCards.length == 2) {
+        gameBoard.style.pointerEvents = 'none'; // Block clicks
+
+        if (flippedCards[0].getAttribute('name') == flippedCards[1].getAttribute('name')) {
             setTimeout(() => {
-                for(let i = 0; i < flippedCards.length; i++) {
+                for (let i = 0; i < flippedCards.length; i++) {
                     flippedCards[i].classList.remove("flipped");
                     flippedCards[i].classList.add("matched");
-                    
+
                     // Remove the back of the card
                     const backFace = flippedCards[i].querySelector('.card-back');
                     backFace.style.visibility = 'hidden';
-                    
+
                     setTimeout(() => {
                         flippedCards[i].style.opacity = "0";
                     }, 100); // Add a small delay before changing opacity
                 }
                 score += 2;
                 scoreCount.textContent = score;
+                gameBoard.style.pointerEvents = 'all'; // Restore clicks
             }, 2000); // Wait for the flip animation to complete
         } else {
-            for (let i = 0; i < flippedCards.length; i++) {
-                flippedCards[i].classList.remove("flipped");
-                setTimeout(() => flippedCards[i].classList.remove("toggleCard"), 1000);
-            }
-            playerLives--;
-            score -= 2;
-            playerLivesCount.textContent = playerLives;
-            scoreCount.textContent = score;
-            if(playerLives == 0) {
-                setTimeout(() => {
-                    restartGame("You Lost the Game");
-                }, 1000);
-            }
+            setTimeout(() => {
+                for (let i = 0; i < flippedCards.length; i++) {
+                    flippedCards[i].classList.remove("flipped");
+                    flippedCards[i].classList.remove("toggleCard");
+                }
+                playerLives--;
+                score -= 2;
+                playerLivesCount.textContent = playerLives;
+                scoreCount.textContent = score;
+                if (playerLives == 0) {
+                    setTimeout(() => {
+                        restartGame("You Lost the Game");
+                    }, 1000);
+                } else {
+                    gameBoard.style.pointerEvents = 'all'; // Restore clicks
+                }
+            }, 2000); // Wait for the flip animation to complete
         }
     }
 
     const toggleCards = document.querySelectorAll(".toggleCard");
-    if(toggleCards.length == 16) {
+    if (toggleCards.length == 16) {
         setTimeout(() => {
             restartGame("You Won!");
         }, 1000);
@@ -114,33 +123,33 @@ function checkCards(e) {
 }
 
 function restartGame(textAlert) {
-    const shuffledImages = randomize();
     const faces = document.querySelectorAll(".card-face");
+    const backs = document.querySelectorAll(".card-back");
     const cards = document.querySelectorAll(".card");
 
-    gameBoard.style.pointerEvents = "none";
+    gameBoard.style.pointerEvents = "none"; // Block clicks during reset
 
-    for(let i = 0; i < shuffledImages.length; i++) {
-        cards[i].classList.remove("toggleCard");
+    setTimeout(() => {
+        for (let i = 0; i < cards.length; i++) {
+            cards[i].classList.remove("toggleCard", "matched");
+            backs[i].style.visibility = "visible"; // Restore the back of the cards
+            cards[i].style.opacity = "1"; // Reset the opacity
+        }
         setTimeout(() => {
-            cards[i].style.pointerEvents = "all";
-            faces[i].src = shuffledImages[i].imgSrc;
-            cards[i].setAttribute('name', shuffledImages[i].name);
+            playerLives = 8;
+            score = 0;
+            playerLivesCount.textContent = playerLives;
+            scoreCount.textContent = score;
+
+            cardGenerator(); // Re-generate cards
+            gameBoard.style.pointerEvents = "all"; // Restore clicks
+
+            setDifficulty();
+
+            setTimeout(() => window.alert(textAlert), 100);
         }, 1000);
-    }
-    playerLives = 8;
-    score = 0;
-
-    playerLivesCount.textContent = playerLives;
-    scoreCount.textContent = score;
-
-    gameBoard.style.pointerEvents = "all";
-
-    setDifficulty();
-
-    setTimeout(() => window.alert(textAlert), 100);
+    }, 1000); // Delay reset to allow any animations to complete
 }
-
 
 document.addEventListener('DOMContentLoaded', function() {
     const difficultySlider = document.getElementById('difficulty');
@@ -208,11 +217,4 @@ window.onclick = function(event) {
     }
 }
 
-var resetButton = document.getElementById("restart-button");
-
-resetButton.onclick = function() {
-    restartGame("The game has been restarted!");
-}
-
-
-cardGenerator();
+document.addEventListener('DOMContentLoaded', cardGenerator);
